@@ -15,7 +15,7 @@ export default function Home() {
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <span>&copy; Jae Webb {year}</span>
-        <span>Built using <a href="https://twelvedata.com/" target='_blank'>Twelve Data&pos;s</a> basic plan</span>
+        <span>Built using <a href="https://twelvedata.com/" target='_blank'>Twelve Data&apos;s</a> basic plan</span>
       </footer>
     </div>
   )
