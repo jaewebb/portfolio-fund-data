@@ -1,3 +1,5 @@
+import { Etf } from '@/app/types/etf'
+
 export function createEtfData(
   symbol: string,
   name: string,
