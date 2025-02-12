@@ -24,9 +24,11 @@ export default function FundFilters(
   const fundFamilies: SelectGroup[] = Object.keys(familyData as FundFamily).map((country: string) => {
     return {
       groupLabel: country,
-      groupValue: familyData?.[country]?.map((family: string) => {
+      groupValue: (familyData && familyData?.[country].length > 0) ?
+      familyData?.[country]?.map((family: string) => {
         return { label: family, value: family, }
-      }),
+      }) :
+      [],
     }
   })
 

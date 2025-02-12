@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { ApiEtf, apiEtfTransform, type EtfApiResult } from '@/app/types/etf'
+import { ApiEtf, apiEtfTransform } from '@/app/types/etf'
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,8 +12,9 @@ export async function GET(request: NextRequest) {
     if (fundFamily) url = `${url}&fund_family=${encodeURIComponent(fundFamily)}`
 
     const data = await fetch(url)
-    const etfs: EtfApiResult = await data.json()
+    const etfs = await data.json()
 
+    if (etfs.status === 'error') return NextResponse.json({ error: etfs.message, }, { status: etfs.code, })
     return NextResponse.json(etfs?.result?.list.map((e: ApiEtf) => apiEtfTransform(e)), { status: 200, })
   } catch (error) {
     return NextResponse.json({ error, }, { status: 500, })

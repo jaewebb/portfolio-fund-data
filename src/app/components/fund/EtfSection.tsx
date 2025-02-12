@@ -12,7 +12,7 @@ import FundFilters from '@/app/components/fund/FundFilters'
 import { Etf } from '@/app/types/etf'
 
 function filterEtfs(etfData: Etf[], selectedCountry: string, selectedFundFamily: string) {
-  let filteredEtfs = etfData || []
+  let filteredEtfs = (etfData && etfData.length > 0) ? etfData : []
   if (selectedCountry) filteredEtfs = filteredEtfs.filter(etf => etf.country === selectedCountry)
   if (selectedFundFamily) filteredEtfs = filteredEtfs.filter(etf => etf.fundFamily === selectedFundFamily)
   return filteredEtfs
@@ -55,7 +55,12 @@ export default function EtfSection() {
     [etfData, selectedCountry, selectedFundFamily,]
   )
 
-  if (etfError || familyError) return <div>failed to load: { etfError || familyError }</div>
+  const errors = []
+
+  if (etfError && etfError) errors.push(`Error getting etfs: ${etfError}`)
+  if (familyError && familyError) errors.push(`Error getting fund families: ${familyError}`)
+
+  if (errors.length > 0) return <ul>{ errors.map((e, index) => (<li key={`${e}-${index}`}>{ e }</li>))}</ul>
   if (etfLoading || familyLoading) return <div>loading...</div>
 
   return (

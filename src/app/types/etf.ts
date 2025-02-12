@@ -23,6 +23,11 @@ export interface EtfApiResult {
     status: string
   }
 }
+export interface EtfApiError {
+  code: number
+  message: ApiEtf[]
+  status: string
+}
 
 export interface EtfFamilyApiResult {
   result: {

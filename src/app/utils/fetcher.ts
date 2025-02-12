@@ -1,2 +1,11 @@
-const fetcher = async (url: string) => await fetch(url).then(res => res.json())
+const fetcher = async (url: string) => {
+  const res = await fetch(url)
+
+  if (!res.ok) {
+    const error = new Error(res.statusText)
+    throw error
+  }
+
+  return res.json()
+}
 export default fetcher
